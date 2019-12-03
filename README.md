@@ -1,1 +1,3 @@
-# -Gallows-game
+# Gallows-game
+
+A simple word guessing game
