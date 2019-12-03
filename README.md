@@ -2,5 +2,5 @@
 
 A simple word guessing game
 
-#### deployed: 
+#### deployed:
 https://uladzi.github.io/Gallows-game
