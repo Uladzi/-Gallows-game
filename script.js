@@ -19,8 +19,8 @@ let remainingLetters = word.length;
 let numberOfMistakes = 3;
 
 let name = prompt('Hello!\n\nWhat is your name?')
-alert('\nNice to meet you, ' + name + '! I\'m Vova ☺\n\nLet\'s play the game!');
-alert('\nHidden word - the kind of animal from the book/film "Mowgli":\n' +
+alert('\nNice to meet you, ' + name + '! I\'m Jonny ☺\n\nLet\'s play the game!');
+alert('\nThe hidden word - an animal from the book "Mowgli":\n' +
     answerArray.join('  ') + ' (' + word.length + ' letters)');
 
 while (remainingLetters > 0) {
@@ -29,7 +29,7 @@ while (remainingLetters > 0) {
         alert('Bye bye.');
         break;
     } else if (guess.length !== 1) {
-        alert('Input just the one letter, please.');
+        alert('Input just one letter, please.');
     } else {
         guess = guess.toLowerCase();
         let matchCounter = 0;
