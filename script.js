@@ -1,58 +1,106 @@
-const words = [
-    'bear',
-    'wolf',
-    'tiger',
-    'monkey',
-    'panther',
-    'snake',
-    'jackal',
-];
+const pickWord = function() {
+    const words = [
+        'bear',
+        'wolf',
+        'tiger',
+        'monkey',
+        'panther',
+        'snake',
+        'jackal',
+    ];
+    return words[Math.floor(Math.random() * words.length)];
+};
 
-const word = words[Math.floor(Math.random() * words.length)];
+const setupAnswerArray = function(word) {
+    const answerArray = [];
+    for (let i = 0; i < word.length; i++) {
+        answerArray[i] = '_';
+    }
 
-const answerArray = [];
-for (let i = 0; i < word.length; i++) {
-    answerArray[i] = '_';
+    return answerArray;
+};
+
+const showPlayerProgress = function(answerArray) {
+    alert(answerArray.join('  '));
+};
+
+const getGuess = function(answerArray) {
+    return prompt('Guess the letter or click "Cancel" to exit the game.\n' +
+        answerArray.join('  '));
+};
+
+const updateGameState = function(guess, word, answerArray) {
+    guess = guess.toLowerCase();
+    let appearances = 0;
+    for (let j = 0; j < word.length; j++) {
+        if (word[j] === guess && answerArray[j] === '_') {
+            answerArray[j] = guess;
+            appearances++;
+            showPlayerProgress(answerArray);
+        }
+    }
+    return appearances;
+};
+
+const greetings = function(answerArray, word) {
+    while (true) {
+        const name = prompt('Hello!\n\nWhat is your name?');
+        if (name === null) {
+            break;
+        } else if (name.length !== 1) {
+            alert('Try again, please.');
+        } else {
+            alert('\nNice to meet you, ' + name +
+                '! I\'m Jimmy..  Jimmy Gallows ☺\n\nLet\'s play the game!');
+            alert('\nThe hidden word - an animal from the book "Mowgli":\n' +
+                answerArray.join('  ') + ' (' + word.length + ' letters)');
+            break;
+        }
+    }
+};
+
+let leftMistakes = function(numberOfMistakes) {
+    alert('Nope.');
+    alert(numberOfMistakes + ' attempts left');
 }
 
-let remainingLetters = word.length;
-let numberOfMistakes = 3;
+let lastAttempt = function() {
+    alert('\nYou\'re attempts are over.\n\nBye bye.');
+}
 
-let name = prompt('Hello!\n\nWhat is your name?')
-alert('\nNice to meet you, ' + name + '! I\'m Jonny ☺\n\nLet\'s play the game!');
-alert('\nThe hidden word - an animal from the book "Mowgli":\n' +
-    answerArray.join('  ') + ' (' + word.length + ' letters)');
+const showCongratsAndShowAnswer = function(word) {
+    alert('Congratulates!\nThe right word is ' + word.toUpperCase());
+};
+
+
+const word = pickWord();
+const answerArray = setupAnswerArray(word);
+let remainingLetters = word.length;
+let numberOfMistakes = 5;
+
+greetings(answerArray, word);
 
 while (remainingLetters > 0) {
-    let guess = prompt('Guess the letter or click "Cancel" to exit the game.\n' + answerArray.join('  '));
+    const guess = getGuess(answerArray);
     if (guess === null) {
         alert('Bye bye.');
         break;
     } else if (guess.length !== 1) {
         alert('Input just one letter, please.');
     } else {
-        guess = guess.toLowerCase();
-        let matchCounter = 0;
-        for (let j = 0; j < word.length; j++) {
-            if (word[j] === guess && answerArray[j] === '_') {
-                answerArray[j] = guess;
-                remainingLetters--;
-                matchCounter++;
-                alert(answerArray.join('  '));
-            }
-        }
-        if (matchCounter === 0) {
-            alert('Nope.');
+        const correctGuesses = updateGameState(guess, word, answerArray);
+        remainingLetters -= correctGuesses;
+        if (correctGuesses === 0) {
             numberOfMistakes--;
-            alert(numberOfMistakes + ' attempts left');
+            leftMistakes(numberOfMistakes);
         }
         if (numberOfMistakes === 0) {
-            alert('\nYou\'re attempts are over.\n\nBye bye.');
+            lastAttempt();
             break;
         }
     }
-}
+};
 
 if (remainingLetters === 0) {
-    alert('Great! The word was - ' + word.toUpperCase());
-}
+    showCongratsAndShowAnswer(word);
+};
