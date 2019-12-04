@@ -47,7 +47,7 @@ const greetings = function(answerArray, word) {
         const name = prompt('Hello!\n\nWhat is your name?');
         if (name === null) {
             break;
-        } else if (name.length !== 1) {
+        } else if (name.length < 1) {
             alert('Try again, please.');
         } else {
             alert('\nNice to meet you, ' + name +
@@ -59,14 +59,14 @@ const greetings = function(answerArray, word) {
     }
 };
 
-let leftMistakes = function(numberOfMistakes) {
+const leftMistakes = function(numberOfMistakes) {
     alert('Nope.');
     alert(numberOfMistakes + ' attempts left');
-}
+};
 
-let lastAttempt = function() {
+const lastAttempt = function() {
     alert('\nYou\'re attempts are over.\n\nBye bye.');
-}
+};
 
 const showCongratsAndShowAnswer = function(word) {
     alert('Congratulates!\nThe right word is ' + word.toUpperCase());
@@ -99,8 +99,8 @@ while (remainingLetters > 0) {
             break;
         }
     }
-};
+}
 
 if (remainingLetters === 0) {
     showCongratsAndShowAnswer(word);
-};
+}
