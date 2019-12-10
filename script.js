@@ -46,6 +46,9 @@ const greetings = function(answerArray, word) {
     while (true) {
         const name = prompt('Hello!\n\nWhat is your name?');
         if (name === null) {
+            alert('hmm... okay');
+            alert('\nThe hidden word - an animal from the book "Mowgli":\n' +
+                answerArray.join('  ') + ' (' + word.length + ' letters)');
             break;
         } else if (name.length < 1) {
             alert('Try again, please.');
