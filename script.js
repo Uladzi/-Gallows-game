@@ -1,3 +1,6 @@
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+
 const pickWord = function() {
     const words = [
         'bear',
@@ -62,10 +65,51 @@ const greetings = function(answerArray, word) {
     }
 };
 
+const drawMan = function(numberOfMistakes) {
+    if (numberOfMistakes === 4) {
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(200, 50, 20, 0, Math.PI * 2, false);
+        ctx.stroke();
+    } else if (numberOfMistakes === 3) {
+        ctx.beginPath();
+        ctx.moveTo(200, 70);
+        ctx.lineTo(200, 150);
+        ctx.lineTo(170, 190);
+        ctx.moveTo(200, 150);
+        ctx.lineTo(230, 190);
+        ctx.stroke();
+    } else if (numberOfMistakes === 2) {
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.lineTo(200, 150);
+        ctx.lineTo(170, 190);
+        ctx.moveTo(200, 150);
+        ctx.lineTo(230, 190);
+        ctx.stroke();
+    } else if (numberOfMistakes === 1) {
+        ctx.beginPath();
+        ctx.moveTo(200, 100);
+        ctx.lineTo(170, 80);
+        ctx.moveTo(200, 100);
+        ctx.lineTo(230, 80);
+        ctx.stroke();
+    } else if (numberOfMistakes === 0) {
+        ctx.beginPath();
+        ctx.arc(200, 50, 20, 0, Math.PI * 2, false);
+        ctx.fillStyle = 'Red';
+        ctx.fill();
+        ctx.moveTo(200, 150);
+        ctx.lineTo(200, 170);
+        ctx.stroke();
+    }
+};
+
 const leftMistakes = function(numberOfMistakes) {
     alert('Nope.');
     alert(numberOfMistakes + ' attempts left');
 };
+
 
 const lastAttempt = function() {
     alert('\nYou\'re attempts are over.\n\nBye bye.');
@@ -95,6 +139,7 @@ while (remainingLetters > 0) {
         remainingLetters -= correctGuesses;
         if (correctGuesses === 0) {
             numberOfMistakes--;
+            drawMan(numberOfMistakes);
             leftMistakes(numberOfMistakes);
         }
         if (numberOfMistakes === 0) {
